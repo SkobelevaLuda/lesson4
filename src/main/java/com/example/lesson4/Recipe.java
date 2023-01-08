@@ -5,14 +5,18 @@ import java.util.List;
 import java.util.Objects;
 
 public class Recipe {
-    private String name;
-    private int timeUnit;
+    public String name;
+    private final int timeUnit;
     public List<String> ingredients = new ArrayList<>();
 
     public List<String> steps = new ArrayList<>();
 
     public Recipe(String name, int timeUnit, List<String> ingredients, List<String> steps) {
-        this.name = name;
+        if (name==null||name.isEmpty()){
+            System.out.println("Заполните информацию");
+        }else {
+            this.name = name;
+        }
         this.timeUnit = timeUnit;
         this.ingredients = ingredients;
         this.steps = steps;
@@ -29,6 +33,34 @@ public class Recipe {
     @Override
     public int hashCode() {
         return Objects.hash(name, timeUnit, ingredients, steps);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getTimeUnit() {
+        return timeUnit;
+    }
+
+    public List<String> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<String> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public List<String> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<String> steps) {
+        this.steps = steps;
     }
 }
 
