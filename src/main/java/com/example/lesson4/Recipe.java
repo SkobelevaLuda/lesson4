@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class Recipe {
     public String name;
-    private final int timeUnit;
+    private int timeUnit;
     public List<String> ingredients = new ArrayList<>();
 
     public List<String> steps = new ArrayList<>();
@@ -17,7 +17,11 @@ public class Recipe {
         }else {
             this.name = name;
         }
-        this.timeUnit = timeUnit;
+        if (timeUnit==0){
+            System.out.println("Не верное время");
+        }else{
+            this.timeUnit = timeUnit;
+        }
         this.ingredients = ingredients;
         this.steps = steps;
     }
