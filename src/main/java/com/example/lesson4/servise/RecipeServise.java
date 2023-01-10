@@ -1,7 +1,10 @@
 package com.example.lesson4.servise;
 
-public interface RecipeServise {
-    String addRecipe();
+import com.example.lesson4.model.Recipe;
 
-    String receivingRecipe();
+public interface RecipeServise {
+
+    int addRecipe();
+
+    Class<Recipe> receivingRecipe();
 }
