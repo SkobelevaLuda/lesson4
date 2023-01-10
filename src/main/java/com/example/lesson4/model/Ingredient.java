@@ -1,4 +1,4 @@
-package com.example.lesson4;
+package com.example.lesson4.model;
 
 import java.util.List;
 import java.util.Objects;
@@ -8,18 +8,33 @@ public class Ingredient {
     private int weith;
     private String unit;
 
-    public static void add(List<String> ingredients) {
-
-
-    }
-    public void addIngredients(List<String> ingredients) {
-
-        Ingredient.add(ingredients);
-    }
-
     public Ingredient(String nameIngredirtn, int weith, String unit) {
         this.nameIngredirtn = nameIngredirtn;
         this.weith = weith;
+        this.unit = unit;
+    }
+
+    public String getNameIngredirtn() {
+        return nameIngredirtn;
+    }
+
+    public void setNameIngredirtn(String nameIngredirtn) {
+        this.nameIngredirtn = nameIngredirtn;
+    }
+
+    public int getWeith() {
+        return weith;
+    }
+
+    public void setWeith(int weith) {
+        this.weith = weith;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
         this.unit = unit;
     }
 

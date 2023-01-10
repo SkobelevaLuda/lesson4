@@ -1,10 +1,15 @@
 package com.example.lesson4.servise;
 
+import com.example.lesson4.model.Ingredient;
+import com.example.lesson4.servise.Map;
+
+import java.util.List;
+
 public class Servise {
     private int id=1;
-    private Object recipe;
 
     private Servise(int id) {
+
         this.id = id+1;
     }
 
@@ -25,4 +30,9 @@ public class Servise {
     public Map<Integer, String> getMap() {
         return map;
     }
+
+    public static void add(List<String> ingredients) {
+
+    }
+
 }

@@ -1,5 +1,10 @@
 package com.example.lesson4.servise;
 
+import com.example.lesson4.model.Ingredient;
+import com.example.lesson4.servise.Map;
+
+import java.util.List;
+
 public class ServiseIngredient {
     private int idd=1;
 
@@ -20,4 +25,5 @@ public class ServiseIngredient {
     public void setIdd(int idd) {
         this.idd = idd;
     }
+
 }
