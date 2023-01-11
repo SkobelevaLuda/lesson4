@@ -1,25 +1,24 @@
 package com.example.lesson4.controllers;
 
 import com.example.lesson4.model.Recipe;
-import com.example.lesson4.servise.RecipeServise;
-import org.springframework.http.ResponseEntity;
+import com.example.lesson4.servise.impl.RecipeServiseImpl;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RecipeController {
-    private final RecipeServise recipeServise;
+    private final RecipeServiseImpl recipeServise;
 
-    public RecipeController(RecipeServise recipeServise) {
+    public RecipeController(RecipeServiseImpl recipeServise) {
         this.recipeServise = recipeServise;
     }
 
-    @PostMapping
+    @PostMapping("/recipe")
     public Recipe add(@RequestBody Recipe recipe){
 
-        return RecipeServise.add(recipe);
+        return RecipeServiseImpl.add(recipe);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/recipe/{id}")
     public Recipe get(@PathVariable long id){
         return recipeServise.get(id);
 
