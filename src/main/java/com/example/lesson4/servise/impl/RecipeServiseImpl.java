@@ -11,15 +11,17 @@ import java.util.Map;
 
 public class RecipeServiseImpl {
 
-    private static final Map<Long,Recipe> recipes=new HashMap<>();
+    private static final Map<Long, Recipe> recipes = new HashMap<>();
 
     private static long idGenerator = 1;
-@Nullable
-    public static Recipe add(Recipe recipe) {
-        recipes.put(idGenerator++,recipe);
+
+    public Recipe add(Recipe recipe) {
+        recipes.put(idGenerator++, recipe);
+
         return recipe;
     }
 
+    @Nullable
     public Recipe get(long id) {
         return recipes.get(id);
     }

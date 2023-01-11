@@ -12,16 +12,15 @@ import java.util.Map;
 public class IngredientServiseImpl {
     private static final Map<Long, Ingredient> ingredients = new HashMap<>();
 
-    private static long idGenerator = 1;
+    private long idGenerator = 1;
 
-    @Nullable
-    public static Ingredient add(Ingredient ingredient) {
+    public Ingredient add(Ingredient ingredient) {
         ingredients.put(idGenerator++, ingredient);
         return ingredient;
     }
 
-
-    public Ingredient get(long id) {
+@Nullable
+    public Ingredient gettt(long id) {
         return ingredients.get(id);
     }
 }

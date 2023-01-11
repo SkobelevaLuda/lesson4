@@ -5,6 +5,7 @@ import com.example.lesson4.servise.impl.RecipeServiseImpl;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/recipe")
 public class RecipeController {
     private final RecipeServiseImpl recipeServise;
 
@@ -12,13 +13,13 @@ public class RecipeController {
         this.recipeServise = recipeServise;
     }
 
-    @PostMapping("/recipe")
+    @PostMapping
     public Recipe add(@RequestBody Recipe recipe){
 
-        return RecipeServiseImpl.add(recipe);
+        return recipeServise.add(recipe);
     }
 
-    @GetMapping("/recipe/{id}")
+    @GetMapping("/{id}")
     public Recipe get(@PathVariable long id){
         return recipeServise.get(id);
 

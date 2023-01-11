@@ -5,6 +5,7 @@ import com.example.lesson4.servise.impl.IngredientServiseImpl;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/ingredient")
 
 public class IngredientController {
 
@@ -14,15 +15,11 @@ public class IngredientController {
         this.ingredientServise = ingredientServise;
     }
 
-    @PostMapping("/ingredient")
+    @PostMapping
     public Ingredient add(@RequestBody Ingredient ingredient){
 
-        return IngredientServiseImpl.add(ingredient);
+        return ingredientServise.add(ingredient);
     }
 
-    @GetMapping("/ingredient/{id}")
-    public Ingredient get(@PathVariable long id){
-        return ingredientServise.get(id);
 
-    }
 }
