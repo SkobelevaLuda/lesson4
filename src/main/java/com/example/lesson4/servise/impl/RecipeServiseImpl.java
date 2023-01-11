@@ -15,12 +15,12 @@ public class RecipeServiseImpl implements RecipeServise {
     }
 
     @Override
-    public int addRecipe() {
-        return id;
+    public void searchToIdRecipe() {
+
     }
 
     @Override
-    public Class<Recipe> receivingRecipe() {
-        return Recipe.class;
+    public void addRecipe() {
+
     }
 }

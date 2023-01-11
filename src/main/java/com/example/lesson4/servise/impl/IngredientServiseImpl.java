@@ -4,12 +4,12 @@ import com.example.lesson4.servise.IngredientServise;
 
 public class IngredientServiseImpl implements IngredientServise {
     @Override
-    public String addIngredient() {
-        return null;
+    public void addIngredient() {
+
     }
 
     @Override
-    public String receivingIngredient() {
-        return null;
+    public void searchToIdIngredient() {
+
     }
 }

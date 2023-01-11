@@ -4,7 +4,6 @@ import com.example.lesson4.model.Recipe;
 
 public interface RecipeServise {
 
-    int addRecipe();
-
-    Class<Recipe> receivingRecipe();
+    public void searchToIdRecipe();
+    public void addRecipe();
 }
