@@ -4,23 +4,24 @@ import com.example.lesson4.model.Recipe;
 import com.example.lesson4.servise.RecipeServise;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 
 public class RecipeServiseImpl implements RecipeServise {
 
-    public int id;
+    private final Map<Long,Recipe> recipes=new HashMap<>();
 
-    public RecipeServiseImpl() {
-        this.id += id;
+    private  long idGenerator = 1;
+
+    @Override
+    public void add(Recipe recipe) {
+        recipes.put(idGenerator++,recipe);
     }
 
     @Override
-    public void searchToIdRecipe() {
-
-    }
-
-    @Override
-    public void addRecipe() {
-
+    public Recipe get(long id) {
+        return recipes.get(id);
     }
 }

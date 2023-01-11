@@ -1,15 +1,16 @@
 package com.example.lesson4.model;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 
 public class Recipe {
     public String name;
     private int timeUnit;
-    public List<String> ingredients = new ArrayList<>();
+    public List<String> ingredients;
 
-    public List<String> steps = new ArrayList<>();
+    public List<String> steps;
 
     public Recipe(String name, int timeUnit, List<String> ingredients, List<String> steps) {
         if (name==null||name.isEmpty()){
@@ -66,5 +67,10 @@ public class Recipe {
     public void setSteps(List<String> steps) {
         this.steps = steps;
     }
+
+    public <K, V> Object getIngredients(LinkedHashMap<K,V> kvLinkedHashMap) {
+        return ingredients;
+    }
+
 }
 
