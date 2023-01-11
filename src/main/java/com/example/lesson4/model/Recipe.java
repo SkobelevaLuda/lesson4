@@ -8,11 +8,11 @@ import java.util.Objects;
 public class Recipe {
     public String name;
     private int timeUnit;
-    public List<String> ingredients;
+    public List<Ingredient> ingredients;
 
     public List<String> steps;
 
-    public Recipe(String name, int timeUnit, List<String> ingredients, List<String> steps) {
+    public Recipe(String name, int timeUnit, List<Ingredient> ingredients, List<String> steps) {
         if (name==null||name.isEmpty()){
             System.out.println("Заполните информацию");
         }else {
@@ -27,20 +27,7 @@ public class Recipe {
         this.steps = steps;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Recipe recipe = (Recipe) o;
-        return timeUnit == recipe.timeUnit && name.equals(recipe.name) && Objects.equals(ingredients, recipe.ingredients) && Objects.equals(steps, recipe.steps);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, timeUnit, ingredients, steps);
-    }
-
-    public String getName() {
+   public String getName() {
         return name;
     }
 
@@ -52,11 +39,11 @@ public class Recipe {
         return timeUnit;
     }
 
-    public List<String> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -72,5 +59,17 @@ public class Recipe {
         return ingredients;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recipe recipe = (Recipe) o;
+        return timeUnit == recipe.timeUnit && name.equals(recipe.name) && Objects.equals(ingredients, recipe.ingredients) && Objects.equals(steps, recipe.steps);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, timeUnit, ingredients, steps);
+    }
 }
 
