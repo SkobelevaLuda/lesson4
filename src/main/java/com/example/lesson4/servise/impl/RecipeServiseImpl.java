@@ -1,11 +1,13 @@
 package com.example.lesson4.servise.impl;
 
 import com.example.lesson4.model.Recipe;
+import com.example.lesson4.model.Recipe;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 
@@ -20,17 +22,19 @@ public class RecipeServiseImpl {
         return recipe;
     }
 
-    @Nullable
-    public Recipe get(long id) {
-
-        return recipes.get(id);
+    public Optional<Recipe> get(long id) {
+        return Optional.ofNullable(recipes.get(id));
     }
 
-    public Recipe edit(Long id, Recipe recipe) {
-        return null;
+    public Optional<Recipe> edit(Long id, Recipe recipe) {
+        return Optional.ofNullable(recipes.replace(id, recipe));
     }
 
-    public Recipe delite(Long id, Recipe recipe) {
-        return null;
+    public Optional <Recipe> delite(Long id, Recipe recipe) {
+        return Optional.ofNullable(recipes.remove(id));
+    }
+
+    public Map<Long, Recipe> getAll() {
+        return new HashMap<>(recipes);
     }
 }

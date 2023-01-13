@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 
@@ -18,16 +19,16 @@ public class IngredientServiseImpl {
         return ingredient;
     }
 
-    public Ingredient get(long id) {
-        return ingredients.get(idGenerator);
+    public Optional<Ingredient> get(long id) {
+        return Optional.ofNullable(ingredients.get(id));
     }
 
-    public Ingredient edit(Long id, Ingredient ingredient) {
-        return null;
+    public Optional<Ingredient> edit(Long id, Ingredient ingredient) {
+        return Optional.ofNullable(ingredients.replace(id, ingredient));
     }
 
-    public Ingredient delite(Long id, Ingredient ingredient) {
-        return null;
+    public Optional <Ingredient> delite(Long id, Ingredient ingredient) {
+        return Optional.ofNullable(ingredients.remove(id));
     }
 
     public Map<Long, Ingredient> getAll() {

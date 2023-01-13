@@ -2,6 +2,7 @@ package com.example.lesson4.controllers;
 
 import com.example.lesson4.model.Ingredient;
 import com.example.lesson4.servise.impl.IngredientServiseImpl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -23,18 +24,18 @@ public class IngredientController {
         return ingredientServise.add(ingredient);
     }
     @GetMapping("/{id}")
-    public Ingredient get(@PathVariable long id) {
-        return ingredientServise.get(id);
+    public ResponseEntity <Ingredient> get(@PathVariable long id) {
+        return ResponseEntity.of(ingredientServise.get(id));
     }
 
     @PutMapping("/{id}")
-    public Ingredient edit(@PathVariable Long id, @RequestBody Ingredient ingredient){
-        return ingredientServise.edit(id, ingredient);
+    public ResponseEntity <Ingredient> edit(@PathVariable Long id, @RequestBody Ingredient ingredient){
+        return ResponseEntity.of(ingredientServise.edit(id, ingredient));
     }
 
     @DeleteMapping("/{id}")
-    public Ingredient delite(@PathVariable Long id, @RequestBody Ingredient ingredient){
-        return ingredientServise.delite(id, ingredient);
+    public ResponseEntity <Ingredient> delite(@PathVariable Long id, @RequestBody Ingredient ingredient){
+        return ResponseEntity.of(ingredientServise.delite(id, ingredient));
     }
 
     @GetMapping
