@@ -27,7 +27,10 @@ public class Recipe {
         this.steps = steps;
     }
 
-   public String getName() {
+    public Recipe() {
+    }
+
+    public String getName() {
         return name;
     }
 
@@ -55,9 +58,6 @@ public class Recipe {
         this.steps = steps;
     }
 
-    public <K, V> Object getIngredients(LinkedHashMap<K,V> kvLinkedHashMap) {
-        return ingredients;
-    }
 
     @Override
     public boolean equals(Object o) {
