@@ -31,7 +31,7 @@ public class RecipeController {
 
     @PostMapping
     public ResponseEntity <Recipe> add(@RequestBody Recipe recipe){
-        if (!validateService.validate(recipe)){
+        if (!validateService.isNotValid(recipe)){
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(recipeServise.add(recipe));
@@ -45,7 +45,7 @@ public class RecipeController {
     @PutMapping("/{id}")
     public ResponseEntity <Recipe> edit(@PathVariable Long id,
                                         @RequestBody Recipe recipe){
-        if (!validateService.validate(recipe)){
+        if (!validateService.isNotValid(recipe)){
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.of(recipeServise.edit(id, recipe));

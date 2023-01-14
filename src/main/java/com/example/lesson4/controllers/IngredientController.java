@@ -3,6 +3,7 @@ package com.example.lesson4.controllers;
 import com.example.lesson4.model.Ingredient;
 import com.example.lesson4.servise.impl.IngredientServiseImpl;
 import com.example.lesson4.servise.impl.ValidateServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,8 +25,10 @@ public class IngredientController {
         this.ingredientServise = ingredientServise;
         this.validateService = validateService;
     }
+    @Operation(summary = "add", description = " добавление рецепта")
     @ApiResponses({
-            @ApiResponse
+            @ApiResponse (responseCode = "200",description = "Добавление прошло успешно"),
+            @ApiResponse (responseCode = "400",description = "Некорректные параметры")
     })
 
     @PostMapping
