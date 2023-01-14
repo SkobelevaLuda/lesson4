@@ -3,11 +3,14 @@ package com.example.lesson4.controllers;
 import com.example.lesson4.model.Ingredient;
 import com.example.lesson4.servise.impl.IngredientServiseImpl;
 import com.example.lesson4.servise.impl.ValidateServiceImpl;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-
+@Tag(name = "IngredientController", description = " API для рецептов")
 @RestController
 @RequestMapping("/ingredient")
 
@@ -21,6 +24,9 @@ public class IngredientController {
         this.ingredientServise = ingredientServise;
         this.validateService = validateService;
     }
+    @ApiResponses({
+            @ApiResponse
+    })
 
     @PostMapping
     public ResponseEntity<Ingredient> add(@RequestBody Ingredient ingredient){
