@@ -1,6 +1,8 @@
 package com.example.lesson4.controllers;
 
 import java.util.Map;
+
+import com.example.lesson4.servise.impl.ValidateServiceImpl;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,16 +22,19 @@ import java.util.Map;
 @RequestMapping("/recipe")
 public class RecipeController {
     private final RecipeServiseImpl recipeServise;
+    private final ValidateServiceImpl validateService;
 
-    public RecipeController(RecipeServiseImpl recipeServise) {
-
+    public RecipeController(RecipeServiseImpl recipeServise, ValidateServiceImpl validateService) {
         this.recipeServise = recipeServise;
+        this.validateService = validateService;
     }
 
     @PostMapping
-    public Recipe add(@RequestBody Recipe recipe){
-
-        return recipeServise.add(recipe);
+    public ResponseEntity <Recipe> add(@RequestBody Recipe recipe){
+        if (!validateService.validate(recipe)){
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(recipeServise.add(recipe));
     }
 
     @GetMapping("/{id}")
@@ -38,7 +43,11 @@ public class RecipeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity <Recipe> edit(@PathVariable Long id, @RequestBody Recipe recipe){
+    public ResponseEntity <Recipe> edit(@PathVariable Long id,
+                                        @RequestBody Recipe recipe){
+        if (!validateService.validate(recipe)){
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.of(recipeServise.edit(id, recipe));
     }
 

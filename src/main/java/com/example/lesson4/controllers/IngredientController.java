@@ -2,6 +2,7 @@ package com.example.lesson4.controllers;
 
 import com.example.lesson4.model.Ingredient;
 import com.example.lesson4.servise.impl.IngredientServiseImpl;
+import com.example.lesson4.servise.impl.ValidateServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,14 +15,19 @@ public class IngredientController {
 
     private IngredientServiseImpl ingredientServise;
 
-    public void IngredientServise(IngredientServiseImpl ingredientServise) {
+    private final ValidateServiceImpl validateService;
+
+    public IngredientController(IngredientServiseImpl ingredientServise, ValidateServiceImpl validateService) {
         this.ingredientServise = ingredientServise;
+        this.validateService = validateService;
     }
 
     @PostMapping
-    public Ingredient add(@RequestBody Ingredient ingredient){
-
-        return ingredientServise.add(ingredient);
+    public ResponseEntity<Ingredient> add(@RequestBody Ingredient ingredient){
+        if (!validateService.validate(ingredient)){
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(ingredientServise.add(ingredient));
     }
     @GetMapping("/{id}")
     public ResponseEntity <Ingredient> get(@PathVariable long id) {
@@ -29,7 +35,11 @@ public class IngredientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity <Ingredient> edit(@PathVariable Long id, @RequestBody Ingredient ingredient){
+    public ResponseEntity <Ingredient> edit(@PathVariable Long id,
+                                            @RequestBody Ingredient ingredient){
+        if (!validateService.validate(ingredient)){
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.of(ingredientServise.edit(id, ingredient));
     }
 
