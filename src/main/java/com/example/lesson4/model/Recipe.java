@@ -17,10 +17,11 @@ public class Recipe {
     public List<Ingredient> ingredients;
 
     public List<String> steps;
+    private CharSequence titel;
 
 
     public CharSequence getTitel() {
-        return null;
+        return titel;
     }
 }
 

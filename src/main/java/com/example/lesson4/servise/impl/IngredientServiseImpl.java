@@ -28,8 +28,12 @@ public class IngredientServiseImpl {
     @Value("${path.to.files.ingredient}")
     private String filesDir;
 
+
+    @Value("ingredient.json")
+    private String fileNameIng;
+
     public void saveToJsonFileIng(Object object, String fileNameIng) {
-        Path path = Path.of(filesDir, fileNameIng + ".json");
+        Path path = Path.of(filesDir, fileNameIng + "ingredient.json");
         try {
             String json = new ObjectMapper().writeValueAsString(object);
             Files.createDirectories(path.getParent());

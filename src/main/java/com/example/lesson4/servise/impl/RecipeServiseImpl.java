@@ -29,14 +29,17 @@ public class RecipeServiseImpl {
         return recipe;
     }
     @Value("${path.to.files.ricipe}")
-    private static String files2Dir;
+    private String recipeFilePath;
+
+    @Value("recipe.json")
+    private String recipeFileName;
 
 @PostConstruct
 
-    public void saveToJsonFileRec(Object object, String name) {
-        Path path = Path.of(files2Dir, name + ".json");
+    public void saveToJsonFileRec() {
+        Path path = Path.of(recipeFilePath, recipeFileName + "recipe.json");
         try {
-            String json = new ObjectMapper().writeValueAsString(object);
+            String json = new ObjectMapper().writeValueAsString(recipeFileName);
             Files.createDirectories(path.getParent());
             Files.deleteIfExists(path);
             Files.createFile(path);
@@ -48,9 +51,9 @@ public class RecipeServiseImpl {
         }
     }
     @PostConstruct
-    public static String readFromFileRec() {
+    public String readFromFileRec() {
         try {
-            return Files.readString(Path.of(files2Dir));
+            return Files.readString(Path.of(recipeFilePath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
