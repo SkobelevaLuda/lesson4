@@ -31,7 +31,7 @@ public class RecipeServiseImpl {
     @Value("${path.to.files.ricipe}")
     private static String files2Dir;
 
-    @PostConstruct
+@PostConstruct
 
     public void saveToJsonFileRec(Object object, String name) {
         Path path = Path.of(files2Dir, name + ".json");
@@ -47,6 +47,7 @@ public class RecipeServiseImpl {
             e.printStackTrace();
         }
     }
+    @PostConstruct
     public static String readFromFileRec() {
         try {
             return Files.readString(Path.of(files2Dir));
