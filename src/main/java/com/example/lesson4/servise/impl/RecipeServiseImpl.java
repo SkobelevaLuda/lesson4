@@ -1,11 +1,9 @@
 package com.example.lesson4.servise.impl;
 
 import com.example.lesson4.model.Recipe;
-import com.example.lesson4.model.Recipe;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -28,18 +26,18 @@ public class RecipeServiseImpl {
         recipes.put(idGenerator++, recipe);
         return recipe;
     }
+
     @Value("${path.to.files.ricipe}")
     private String recipeFilePath;
 
     @Value("recipe.json")
     private String recipeFileName;
 
-@PostConstruct
-
-    public void saveToJsonFileRec() {
+    @PostConstruct
+    public void saveToJsonFileRec(Object object, String recipeFileName) {
         Path path = Path.of(recipeFilePath, recipeFileName + "recipe.json");
         try {
-            String json = new ObjectMapper().writeValueAsString(recipeFileName);
+            String json = new ObjectMapper().writeValueAsString(object);
             Files.createDirectories(path.getParent());
             Files.deleteIfExists(path);
             Files.createFile(path);
@@ -50,6 +48,7 @@ public class RecipeServiseImpl {
             e.printStackTrace();
         }
     }
+
     @PostConstruct
     public String readFromFileRec() {
         try {
@@ -67,7 +66,7 @@ public class RecipeServiseImpl {
         return Optional.ofNullable(recipes.replace(id, recipe));
     }
 
-    public Optional <Recipe> delite(Long id, Recipe recipe) {
+    public Optional<Recipe> delite(Long id, Recipe recipe) {
         return Optional.ofNullable(recipes.remove(id));
     }
 
