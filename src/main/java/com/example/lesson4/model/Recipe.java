@@ -12,11 +12,11 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Recipe {
-    public String name;
+    private String name;
     private int timeUnit;
-    public List<Ingredient> ingredients;
+    private List<Ingredient> ingredients;
 
-    public List<String> steps;
+    private List<String> steps;
     private CharSequence titel;
 
 

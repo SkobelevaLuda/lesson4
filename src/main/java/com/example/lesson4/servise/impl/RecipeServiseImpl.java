@@ -1,8 +1,8 @@
 package com.example.lesson4.servise.impl;
 
 import com.example.lesson4.model.Recipe;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.asm.TypeReference;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -22,39 +23,47 @@ public class RecipeServiseImpl {
 
     private long idGenerator = 1;
 
+    private final Path pathToFile;
+
+    private final ObjectMapper objectMapper;
+
+    public RecipeServiseImpl(@Value("${path.to.files.ricipe}") String path) {
+        this.pathToFile = Paths.get(path);
+        this.objectMapper = new ObjectMapper();
+    }
+
     public Recipe add(Recipe recipe) {
         recipes.put(idGenerator++, recipe);
+        saveToJsonFileRec();
         return recipe;
     }
 
     @Value("${path.to.files.ricipe}")
     private String recipeFilePath;
 
-    @Value("recipe.json")
+    @Value("${name.of.data.recipe}")
+
     private String recipeFileName;
 
-    @PostConstruct
-    public void saveToJsonFileRec(Object object, String recipeFileName) {
-        Path path = Path.of(recipeFilePath, recipeFileName + "recipe.json");
+    public void saveToJsonFileRec() {
         try {
-            String json = new ObjectMapper().writeValueAsString(object);
-            Files.createDirectories(path.getParent());
-            Files.deleteIfExists(path);
-            Files.createFile(path);
-            Files.writeString(path, json);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            byte[] data = objectMapper.writeValueAsBytes(recipes);
+            Files.write(pathToFile, data);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @PostConstruct
-    public String readFromFileRec() {
+    public void readFromFileRec() {
         try {
-            return Files.readString(Path.of(recipeFilePath));
+            Map<Long, Recipe> fromFile = objectMapper.readValue(Files.readAllBytes(pathToFile),
+            new TypeReference(){});
+
+            recipes.putAll(fromFile);
+
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
