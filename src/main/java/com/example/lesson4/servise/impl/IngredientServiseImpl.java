@@ -25,13 +25,9 @@ public class IngredientServiseImpl {
         ingredients.put(idGenerator++, ingredient);
         return ingredient;
     }
-    @Value("${path.to.files.ingredient}")
+    @Value("${application.path.to.ingredients}")
     private String filesDir;
 
-
-    @Value("${name.of.data.ingredient}")
-
-    private String fileNameIng;
 
     public void saveToJsonFileIng(Object object, String fileNameIng) {
         Path path = Path.of(filesDir, fileNameIng);

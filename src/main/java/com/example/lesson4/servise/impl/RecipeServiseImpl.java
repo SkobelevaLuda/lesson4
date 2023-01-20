@@ -1,8 +1,8 @@
 package com.example.lesson4.servise.impl;
 
 import com.example.lesson4.model.Recipe;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.asm.TypeReference;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class RecipeServiseImpl {
 
     private final ObjectMapper objectMapper;
 
-    public RecipeServiseImpl(@Value("${path.to.files.ricipe}") String path) {
+    public RecipeServiseImpl(@Value("${application.path.to.recipes}") String path) {
         this.pathToFile = Paths.get(path);
         this.objectMapper = new ObjectMapper();
     }
@@ -37,13 +37,6 @@ public class RecipeServiseImpl {
         saveToJsonFileRec();
         return recipe;
     }
-
-    @Value("${path.to.files.ricipe}")
-    private String recipeFilePath;
-
-    @Value("${name.of.data.recipe}")
-
-    private String recipeFileName;
 
     public void saveToJsonFileRec() {
         try {
@@ -57,9 +50,11 @@ public class RecipeServiseImpl {
     @PostConstruct
     public void readFromFileRec() {
         try {
-            Map<Long, Recipe> fromFile = objectMapper.readValue(Files.readAllBytes(pathToFile),
-            new TypeReference(){});
 
+            Map<Long, Recipe> fromFile = objectMapper.readValue(Files.readAllBytes(pathToFile),
+            new TypeReference<>(){
+
+            });
             recipes.putAll(fromFile);
 
         } catch (IOException e) {
