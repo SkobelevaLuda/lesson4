@@ -24,30 +24,7 @@ public class IngredientServiseImpl {
     public Ingredient add(Ingredient ingredient) {
         ingredients.put(idGenerator++, ingredient);
         return ingredient;
-    }
-    @Value("${application.path.to.ingredients}")
-    private String filesDir;
 
-
-    public void saveToJsonFileIng(Object object, String fileNameIng) {
-        Path path = Path.of(filesDir, fileNameIng);
-        try {
-            String json = new ObjectMapper().writeValueAsString(object);
-            Files.createDirectories(path.getParent());
-            Files.deleteIfExists(path);
-            Files.createFile(path);
-            Files.writeString(path, json);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String readFromFileIng(String fileNameIng) {
-        try {
-            return Files.readString(Path.of(filesDir, fileNameIng));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public Optional<Ingredient> get(long id) {

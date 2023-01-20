@@ -67,11 +67,15 @@ public class RecipeServiseImpl {
     }
 
     public Optional<Recipe> edit(Long id, Recipe recipe) {
-        return Optional.ofNullable(recipes.replace(id, recipe));
+        Optional<Recipe> result = Optional.ofNullable(recipes.replace(id, recipe));
+        saveToJsonFileRec();
+        return result;
     }
 
     public Optional<Recipe> delite(Long id, Recipe recipe) {
-        return Optional.ofNullable(recipes.remove(id));
+        Optional <Recipe> result = Optional.ofNullable(recipes.remove(id));
+        saveToJsonFileRec();
+        return result;
     }
 
     public Map<Long, Recipe> getAll() {
