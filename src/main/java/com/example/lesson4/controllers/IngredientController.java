@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+
 @Tag(name = "IngredientController", description = " API для рецептов")
 @RestController
 @RequestMapping("/ingredient")
@@ -25,43 +26,44 @@ public class IngredientController {
         this.ingredientServise = ingredientServise;
         this.validateService = validateService;
     }
+
     @Operation(summary = "add", description = " добавление рецепта")
     @ApiResponses({
-            @ApiResponse (responseCode = "200",description = "Добавление прошло успешно"),
-            @ApiResponse (responseCode = "400",description = "Некорректные параметры")
+            @ApiResponse(responseCode = "200", description = "Добавление прошло успешно"),
+            @ApiResponse(responseCode = "400", description = "Некорректные параметры")
     })
 
     @PostMapping
-    public ResponseEntity<Ingredient> add(@RequestBody Ingredient ingredient){
-        if (!validateService.validate(ingredient)){
+    public ResponseEntity<Ingredient> add(@RequestBody Ingredient ingredient) {
+        if (!validateService.validate(ingredient)) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(ingredientServise.add(ingredient));
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity <Ingredient> get(@PathVariable long id) {
+    public ResponseEntity<Ingredient> get(@PathVariable long id) {
         return ResponseEntity.of(ingredientServise.get(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity <Ingredient> edit(@PathVariable Long id,
-                                            @RequestBody Ingredient ingredient){
-        if (!validateService.validate(ingredient)){
+    public ResponseEntity<Ingredient> edit(@PathVariable Long id,
+                                           @RequestBody Ingredient ingredient) {
+        if (!validateService.validate(ingredient)) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.of(ingredientServise.edit(id, ingredient));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity <Ingredient> delite(@PathVariable Long id, @RequestBody Ingredient ingredient){
+    public ResponseEntity<Ingredient> delite(@PathVariable Long id, @RequestBody Ingredient ingredient) {
         return ResponseEntity.of(ingredientServise.delite(id, ingredient));
     }
 
     @GetMapping
-    public Map<Long,Ingredient> getAll(){
+    public Map<Long, Ingredient> getAll() {
         return ingredientServise.getAll();
     }
-
 
 
 }

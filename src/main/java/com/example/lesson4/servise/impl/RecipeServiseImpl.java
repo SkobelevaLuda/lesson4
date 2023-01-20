@@ -52,9 +52,9 @@ public class RecipeServiseImpl {
         try {
 
             Map<Long, Recipe> fromFile = objectMapper.readValue(Files.readAllBytes(pathToFile),
-            new TypeReference<>(){
+                    new TypeReference<>() {
 
-            });
+                    });
             recipes.putAll(fromFile);
 
         } catch (IOException e) {
@@ -73,7 +73,7 @@ public class RecipeServiseImpl {
     }
 
     public Optional<Recipe> delite(Long id, Recipe recipe) {
-        Optional <Recipe> result = Optional.ofNullable(recipes.remove(id));
+        Optional<Recipe> result = Optional.ofNullable(recipes.remove(id));
         saveToJsonFileRec();
         return result;
     }

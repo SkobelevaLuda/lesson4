@@ -8,25 +8,25 @@ import org.springframework.util.CollectionUtils;
 
 @Service
 public class ValidateServiceImpl {
-    public boolean isNotValid(Recipe recipe){
-        boolean result= StringUtils.isBlank(recipe.getTitel()) &&
+    public boolean isNotValid(Recipe recipe) {
+        boolean result = StringUtils.isBlank(recipe.getTitel()) &&
                 CollectionUtils.isEmpty(recipe.getIngredients()) &&
                 CollectionUtils.isEmpty(recipe.getSteps()) &&
-                recipe.getTimeUnit()<=0;
-        if (!result){
-            for (Ingredient ingredient:recipe.getIngredients()){
-                result=result|| isNotValid(recipe);
+                recipe.getTimeUnit() <= 0;
+        if (!result) {
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                result = result || isNotValid(recipe);
             }
         }
         return result;
 
 
-
     }
-    public boolean validate(Ingredient ingredient){
+
+    public boolean validate(Ingredient ingredient) {
         return StringUtils.isNoneBlank(ingredient.getNameIngredirtn()) &&
                 StringUtils.isNotBlank(ingredient.getUnit()) &&
-                ingredient.getWeith()>0;
+                ingredient.getWeith() > 0;
 
     }
 }

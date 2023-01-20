@@ -1,15 +1,8 @@
 package com.example.lesson4.servise.impl;
 
 import com.example.lesson4.model.Ingredient;
-import com.fasterxml.jackson.core.JsonStreamContext;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jdk.internal.vm.Continuation;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -35,7 +28,7 @@ public class IngredientServiseImpl {
         return Optional.ofNullable(ingredients.replace(id, ingredient));
     }
 
-    public Optional <Ingredient> delite(Long id, Ingredient ingredient) {
+    public Optional<Ingredient> delite(Long id, Ingredient ingredient) {
         return Optional.ofNullable(ingredients.remove(id));
     }
 
