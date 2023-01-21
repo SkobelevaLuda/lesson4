@@ -1,3 +1,24 @@
 {
-
+  " ingredients ": [
+    {
+      "name": " Творог ",
+      "weigth": 350,
+      " measureUnit": "г."
+    },
+    {
+      "name": " Яйцо куриное ",
+      "weigth": 2,
+      " measureUnit": "шт"
+    },
+    {
+      "name": " Пшеничная мука ",
+      "weigth": 6,
+      " measureUnit": "ст/л."
+    },
+    {
+      "name": " Сахар ",
+      "weigth": 2,
+      " measureUnit": "ст/л."
+    }
+  ]
 }
