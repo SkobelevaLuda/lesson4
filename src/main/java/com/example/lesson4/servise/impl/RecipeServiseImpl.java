@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,9 +24,10 @@ public class RecipeServiseImpl {
 
     private long idGenerator = 1;
 
-    private final Path pathToFile;
+    private static Path pathToFile;
 
     private final ObjectMapper objectMapper;
+
 
     public RecipeServiseImpl(@Value("${application.path.to.recipes}") String path) {
         this.pathToFile = Paths.get(path);
@@ -38,6 +40,18 @@ public class RecipeServiseImpl {
         return recipe;
     }
 
+    public boolean cleanRecipeFile(){
+        try {
+            Path path=Path.of(pathToFile.toUri());
+            Files.deleteIfExists(path);
+            Files.createFile(path);
+            return true;
+        }catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public void saveToJsonFileRec() {
         try {
             byte[] data = objectMapper.writeValueAsBytes(recipes);
@@ -45,6 +59,10 @@ public class RecipeServiseImpl {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static File getRecipeDataFile(){
+        return new File(pathToFile+"/");
     }
 
     @PostConstruct
@@ -61,6 +79,8 @@ public class RecipeServiseImpl {
             e.printStackTrace();
         }
     }
+
+
 
     public Optional<Recipe> get(long id) {
         return Optional.ofNullable(recipes.get(id));

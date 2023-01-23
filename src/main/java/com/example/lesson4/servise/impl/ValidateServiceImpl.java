@@ -26,7 +26,7 @@ public class ValidateServiceImpl {
     public boolean validate(Ingredient ingredient) {
         return StringUtils.isNoneBlank(ingredient.getNameIngredirtn()) &&
                 StringUtils.isNotBlank(ingredient.getUnit()) &&
-                ingredient.getWeith() > 0;
+                ingredient.getWeigth() > 0;
 
     }
 }

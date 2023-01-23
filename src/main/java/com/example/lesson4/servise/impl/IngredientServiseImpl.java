@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,7 +24,7 @@ public class IngredientServiseImpl {
 
     private long idGenerator = 1;
 
-    private final Path pathToFile;
+    private static Path pathToFile;
 
     private final ObjectMapper objectMapper;
 
@@ -62,6 +63,12 @@ public class IngredientServiseImpl {
         return ingredient;
 
     }
+
+    public static File getIngredientDataFile(){
+        return new File(pathToFile.toUri());
+    }
+
+
 
     public Optional<Recipe> get(long id) {
         return Optional.ofNullable(ingredients.get(id));

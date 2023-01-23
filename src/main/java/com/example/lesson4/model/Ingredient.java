@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Ingredient {
     private String nameIngredirtn;
-    private int weith;
+    private int weigth;
     private String unit;
 
 
