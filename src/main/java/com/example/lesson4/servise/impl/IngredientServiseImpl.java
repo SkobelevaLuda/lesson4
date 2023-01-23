@@ -68,6 +68,18 @@ public class IngredientServiseImpl {
         return new File(pathToFile.toUri());
     }
 
+    public boolean cleanIngrediientFile(){
+        try {
+            Path path=Path.of(pathToFile.toUri());
+            Files.deleteIfExists(path);
+            Files.createFile(path);
+            return true;
+        }catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 
     public Optional<Recipe> get(long id) {

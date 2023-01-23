@@ -19,8 +19,11 @@ import java.io.*;
 public class FilesController {
     private final RecipeServiseImpl recipeServise;
 
-    public FilesController(RecipeServiseImpl recipeServise) {
+    private final IngredientServiseImpl ingredientServise;
+
+    public FilesController(RecipeServiseImpl recipeServise, IngredientServiseImpl ingredientServise) {
         this.recipeServise = recipeServise;
+        this.ingredientServise = ingredientServise;
     }
 
     @GetMapping("/export")
@@ -41,7 +44,7 @@ public class FilesController {
 
     @GetMapping("/exporting")
     public ResponseEntity<InputStreamResource> dowloadIngredientFile() throws FileNotFoundException {
-        File fileIng = IngredientServiseImpl.getIngredientDataFile();
+        File fileIng = ingredientServise.getIngredientDataFile();
         if (fileIng.exists()) {
             InputStreamResource resource = new InputStreamResource(new FileInputStream(fileIng));
             return ResponseEntity.ok()
@@ -55,12 +58,27 @@ public class FilesController {
         }
     }
 
-    @PostMapping(value = "/import",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> uploadRecipeFile(@RequestParam MultipartFile file) {
         recipeServise.cleanRecipeFile();
         File recipeFile = RecipeServiseImpl.getRecipeDataFile();
 
         try (FileOutputStream fos = new FileOutputStream(recipeFile)) {
+            IOUtils.copy(file.getInputStream(), fos);
+            return ResponseEntity.ok().build();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping(value = "/importing", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> uploadIngredientFile(@RequestParam MultipartFile file) {
+        ingredientServise.cleanIngrediientFile();
+        File ingredientFile = IngredientServiseImpl.getIngredientDataFile();
+
+        try (FileOutputStream fos = new FileOutputStream(ingredientFile)) {
             IOUtils.copy(file.getInputStream(), fos);
             return ResponseEntity.ok().build();
         } catch (FileNotFoundException e) {

@@ -40,13 +40,13 @@ public class RecipeServiseImpl {
         return recipe;
     }
 
-    public boolean cleanRecipeFile(){
+    public boolean cleanRecipeFile() {
         try {
-            Path path=Path.of(pathToFile.toUri());
+            Path path = Path.of(pathToFile.toUri());
             Files.deleteIfExists(path);
             Files.createFile(path);
             return true;
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
@@ -61,8 +61,8 @@ public class RecipeServiseImpl {
         }
     }
 
-    public static File getRecipeDataFile(){
-        return new File(pathToFile+"/");
+    public static File getRecipeDataFile() {
+        return new File(pathToFile + "/");
     }
 
     @PostConstruct
@@ -79,7 +79,6 @@ public class RecipeServiseImpl {
             e.printStackTrace();
         }
     }
-
 
 
     public Optional<Recipe> get(long id) {
