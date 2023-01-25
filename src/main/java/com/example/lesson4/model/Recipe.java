@@ -10,16 +10,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Recipe {
-    private String e;
-    private int timeUnit;
-    private List<Ingredient> ingredients;
+    private String name;
 
     private List<String> steps;
     private CharSequence titel;
 
-
-    public CharSequence getTitel() {
-        return titel;
-    }
-}
+   }
 

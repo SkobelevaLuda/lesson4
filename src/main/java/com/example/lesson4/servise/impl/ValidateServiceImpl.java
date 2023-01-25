@@ -9,12 +9,10 @@ import org.springframework.util.CollectionUtils;
 @Service
 public class ValidateServiceImpl {
     public boolean isNotValid(Recipe recipe) {
-        boolean result = StringUtils.isBlank(recipe.getTitel()) &&
-                CollectionUtils.isEmpty(recipe.getIngredients()) &&
-                CollectionUtils.isEmpty(recipe.getSteps()) &&
-                recipe.getTimeUnit() <= 0;
+        boolean result = StringUtils.isBlank(recipe.getName()) &&
+                CollectionUtils.isEmpty(recipe.getSteps());
         if (!result) {
-            for (Ingredient ingredient : recipe.getIngredients()) {
+            for (String ingredient : recipe.getSteps()) {
                 result = result || isNotValid(recipe);
             }
         }

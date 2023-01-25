@@ -60,10 +60,10 @@ public class RecipeServiseImpl {
     }
 
     public static File getRecipeDataFile() {
-        return new File(pathToFile + "/");
+        return new File(pathToFile.toUri());
     }
 
-   @PostConstruct
+    @PostConstruct
     public void readFromFileRec() {
         try {
 
@@ -98,7 +98,7 @@ public class RecipeServiseImpl {
         return result;
     }
 
-    public Map<Long, Recipe> getAll() {
-        return new HashMap<>(recipes);
+    public Map<Long, Recipe> getAll(RecipeServiseImpl recipeServise) {
+        return new HashMap<>();
     }
 }

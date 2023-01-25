@@ -47,6 +47,6 @@ public class RecipeController {
 
     @GetMapping
     public Map<Long, Recipe> getAll() {
-        return recipeServise.getAll();
+        return recipeServise.getAll(recipeServise);
     }
 }
