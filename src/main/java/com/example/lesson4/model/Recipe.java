@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Recipe {
-    private String name;
+    private String e;
     private int timeUnit;
     private List<Ingredient> ingredients;
 

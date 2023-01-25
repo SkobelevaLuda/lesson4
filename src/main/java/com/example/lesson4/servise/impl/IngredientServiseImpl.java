@@ -1,7 +1,6 @@
 package com.example.lesson4.servise.impl;
 
 import com.example.lesson4.model.Ingredient;
-import com.example.lesson4.model.Recipe;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +19,7 @@ import java.util.Optional;
 @Service
 
 public class IngredientServiseImpl {
-    private final Map<Long, Recipe> ingredients = new HashMap<Long, Recipe>();
+    private final HashMap<Object, Ingredient> ingredients = new HashMap<Object, Ingredient>();
 
     private long idGenerator = 1;
 
@@ -46,7 +45,7 @@ public class IngredientServiseImpl {
     public void readFromFileIngred() {
         try {
 
-            Map<Long, Recipe> fromFile = objectMapper.readValue(Files.readAllBytes(pathToFile),
+            Map<Long, Ingredient> fromFile = objectMapper.readValue(Files.readAllBytes(pathToFile),
                     new TypeReference<>() {
 
                     });
@@ -58,7 +57,7 @@ public class IngredientServiseImpl {
     }
 
     public Ingredient add(Ingredient ingredient) {
-        ingredients.put(idGenerator++, (Recipe) ingredients);
+        ingredients.put(idGenerator++, (Ingredient) ingredient);
         saveToJsonFileIngred();
         return ingredient;
 
@@ -82,22 +81,22 @@ public class IngredientServiseImpl {
 
 
 
-    public Optional<Recipe> get(long id) {
+    public Optional<Ingredient> get(long id) {
         return Optional.ofNullable(ingredients.get(id));
     }
 
-    public Optional<Recipe> edit(Long id, Ingredient ingredient) {
+    public Optional<Ingredient> edit(Long id, Ingredient ingredient) {
         saveToJsonFileIngred();
-        return Optional.ofNullable(ingredients.replace(id, (Recipe) ingredients));
+        return Optional.ofNullable(ingredients.replace(id, (Ingredient) ingredient));
     }
 
-    public Optional<Recipe> delite(Long id, Ingredient ingredient) {
+    public Optional<Ingredient> delite(Long id, Ingredient ingredient) {
         saveToJsonFileIngred();
         return Optional.ofNullable(ingredients.remove(id));
     }
 
-    public Map<Long, Recipe> getAll() {
+    public Map<Long, Ingredient> getAll(IngredientServiseImpl ingredientServise) {
 
-        return new HashMap<>(ingredients);
+        return new HashMap<>();
     }
 }

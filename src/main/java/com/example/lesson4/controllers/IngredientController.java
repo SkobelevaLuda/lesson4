@@ -1,7 +1,6 @@
 package com.example.lesson4.controllers;
 
 import com.example.lesson4.model.Ingredient;
-import com.example.lesson4.model.Recipe;
 import com.example.lesson4.servise.impl.IngredientServiseImpl;
 import com.example.lesson4.servise.impl.ValidateServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,13 +42,13 @@ public class IngredientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Recipe> get(@PathVariable long id) {
+    public ResponseEntity<Ingredient> get(@PathVariable long id) {
         return ResponseEntity.of(ingredientServise.get(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Recipe> edit(@PathVariable Long id,
-                                       @RequestBody Ingredient ingredient) {
+    public ResponseEntity<Ingredient> edit(@PathVariable Long id,
+                                           @RequestBody Ingredient ingredient) {
         if (!validateService.validate(ingredient)) {
             return ResponseEntity.badRequest().build();
         }
@@ -57,14 +56,15 @@ public class IngredientController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Recipe> delite(@PathVariable Long id, @RequestBody Ingredient ingredient) {
+    public ResponseEntity<Ingredient> delite(@PathVariable Long id, @RequestBody Ingredient ingredient) {
         return ResponseEntity.of(ingredientServise.delite(id, ingredient));
     }
 
     @GetMapping
-    public Map<Long, Recipe> getAll() {
+    public Map<Long, Ingredient> getAll() {
 
-        return ingredientServise.getAll();
+
+        return ingredientServise.getAll(ingredientServise);
     }
 
 

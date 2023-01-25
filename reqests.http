@@ -4,20 +4,19 @@ Content-Type: application/json
 
 { "name" : "Сырники",
   "timeUnit" :15,
-  "ingredients" : [ {
+  "ingredients" : [
+  {
     "nameIngredirtn" : "Творог",
     "weigth" : 10,
     "unit" : "г."
   }
 ],
-  "steps" : [{ "1" : "gggg",
-    "2" : "jjj" }]
-
-
-
+  "steps" : [
+  "1" ,
+    "2"
+  ]
 
 }
 
-
 ###
-GET http://localhost:8080/recipe/2
+GET http://localhost:8080/recipe/0

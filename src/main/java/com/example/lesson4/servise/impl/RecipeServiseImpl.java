@@ -1,14 +1,18 @@
 package com.example.lesson4.servise.impl;
 
 import com.example.lesson4.model.Recipe;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -65,12 +69,12 @@ public class RecipeServiseImpl {
         return new File(pathToFile + "/");
     }
 
-    @PostConstruct
+   @PostConstruct
     public void readFromFileRec() {
         try {
 
-            Map<Long, Recipe> fromFile = objectMapper.readValue(Files.readAllBytes(pathToFile),
-                    new TypeReference<>() {
+           Map<Long, Recipe> fromFile = objectMapper.readValue(pathToFile.toFile(),
+                   new TypeReference<>() {
 
                     });
             recipes.putAll(fromFile);
@@ -80,8 +84,10 @@ public class RecipeServiseImpl {
         }
     }
 
+    @Nullable
 
-    public Optional<Recipe> get(long id) {
+    public Optional <Recipe> get(long id) {
+
         return Optional.ofNullable(recipes.get(id));
     }
 
