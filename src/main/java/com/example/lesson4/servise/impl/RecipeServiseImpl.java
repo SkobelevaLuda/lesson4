@@ -1,18 +1,13 @@
 package com.example.lesson4.servise.impl;
-
 import com.example.lesson4.model.Recipe;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,10 +27,9 @@ public class RecipeServiseImpl {
 
     private final ObjectMapper objectMapper;
 
-
-    public RecipeServiseImpl(@Value("${application.path.to.recipes}") String path) {
-        this.pathToFile = Paths.get(path);
-        this.objectMapper = new ObjectMapper();
+    public RecipeServiseImpl(@Value("./src/recipes.json") String path, ObjectMapper objectMapper) {
+        pathToFile =Paths.get(path);
+        this.objectMapper = objectMapper;
     }
 
     public Recipe add(Recipe recipe) {
@@ -73,8 +67,9 @@ public class RecipeServiseImpl {
     public void readFromFileRec() {
         try {
 
-           Map<Long, Recipe> fromFile = objectMapper.readValue(pathToFile.toFile(),
+           Map<Long, Recipe> fromFile = objectMapper.readValue(Files.readAllBytes(pathToFile),
                    new TypeReference<>() {
+
 
                     });
             recipes.putAll(fromFile);
