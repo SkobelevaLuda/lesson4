@@ -1,0 +1,22 @@
+POST http://localhost:8080/recipe
+
+Content-Type: application/json
+
+{ "name" : "Сырники",
+  "timeUnit" :15,
+  "ingredients" : [
+  {
+    "nameIngredirtn" : "Творог",
+    "weigth" : 10,
+    "unit" : "г."
+  }
+],
+  "steps" : [
+  "1" ,
+    "2"
+  ]
+
+}
+
+###
+GET http://localhost:8080/recipe/0
