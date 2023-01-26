@@ -10,10 +10,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Recipe {
-    private String name;
+    private String name ;
 
     private List<String> steps;
-    private CharSequence titel;
+
+    private String titel;
 
    }
 
