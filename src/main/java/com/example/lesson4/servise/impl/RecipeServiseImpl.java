@@ -1,13 +1,15 @@
 package com.example.lesson4.servise.impl;
+
 import com.example.lesson4.model.Recipe;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import javax.annotation.PostConstruct;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,7 +30,7 @@ public class RecipeServiseImpl {
     private final ObjectMapper objectMapper;
 
     public RecipeServiseImpl(@Value("./src/recipes.json") String path, ObjectMapper objectMapper) {
-        pathToFile =Paths.get(path);
+        pathToFile = Paths.get(path);
         this.objectMapper = objectMapper;
     }
 
@@ -67,8 +69,8 @@ public class RecipeServiseImpl {
     public void readFromFileRec() {
         try {
 
-           Map<Long, Recipe> fromFile = objectMapper.readValue(Files.readAllBytes(pathToFile),
-                   new TypeReference<>() {
+            Map<Long, Recipe> fromFile = objectMapper.readValue(Files.readAllBytes(pathToFile),
+                    new TypeReference<>() {
 
 
                     });
@@ -81,7 +83,7 @@ public class RecipeServiseImpl {
 
     @Nullable
 
-    public Optional <Recipe> get(long id) {
+    public Optional<Recipe> get(long id) {
 
         return Optional.ofNullable(recipes.get(id));
     }
@@ -100,5 +102,24 @@ public class RecipeServiseImpl {
 
     public Map<Long, Recipe> getAll(RecipeServiseImpl recipeServise) {
         return new HashMap<>();
+    }
+
+    @Nullable
+    public byte[] download() {
+        try {
+            return Files.readAllBytes(pathToFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void importData(byte[] data) {
+        try {
+            Files.write(pathToFile,data);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

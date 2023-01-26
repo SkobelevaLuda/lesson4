@@ -3,9 +3,13 @@ package com.example.lesson4.controllers;
 import com.example.lesson4.model.Recipe;
 import com.example.lesson4.servise.impl.RecipeServiseImpl;
 import com.example.lesson4.servise.impl.ValidateServiceImpl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -48,5 +52,26 @@ public class RecipeController {
     @GetMapping
     public Map<Long, Recipe> getAll() {
         return recipeServise.getAll(recipeServise);
+    }
+
+    @GetMapping("/download")
+    public ResponseEntity <byte[]> download(){
+        byte[] data = recipeServise.download();
+        if (data==null){
+            return ResponseEntity.badRequest().build();
+        }return ResponseEntity.ok()
+                .contentLength(data.length)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"recipe.json\"")
+                .body(data);
+    }
+
+    @PostMapping("/import")
+    public void importData(@RequestParam("file")MultipartFile multipartFile){
+        try {
+            recipeServise.importData(multipartFile.getBytes());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
