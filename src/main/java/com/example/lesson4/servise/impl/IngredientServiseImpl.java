@@ -4,6 +4,7 @@ import com.example.lesson4.model.Ingredient;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -98,5 +99,26 @@ public class IngredientServiseImpl {
     public Map<Long, Ingredient> getAll(IngredientServiseImpl ingredientServise) {
 
         return new HashMap<>();
+    }
+
+    @Nullable
+
+    public byte[] download() {
+        try {
+            return Files.readAllBytes(pathToFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    @Nullable
+
+    public void importData(byte[] data) {
+        try {
+            Files.write(pathToFile,data);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

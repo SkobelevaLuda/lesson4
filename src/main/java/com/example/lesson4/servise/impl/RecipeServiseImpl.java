@@ -113,6 +113,7 @@ public class RecipeServiseImpl {
             return null;
         }
     }
+    @Nullable
 
     public void importData(byte[] data) {
         try {
@@ -121,5 +122,15 @@ public class RecipeServiseImpl {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Nullable
+
+    public byte[] export() {
+        StringBuilder stringBuilder=new StringBuilder();
+        for (Recipe recipe:recipes.values()){
+            stringBuilder.append(recipe).append("\n").append("***********").append("\n");
+        }
+        return stringBuilder.toString().getBytes();
     }
 }

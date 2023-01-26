@@ -19,7 +19,7 @@ public class ValidateServiceImpl {
 
     public boolean validate(Recipe recipe) {
         return StringUtils.isNoneBlank(recipe.getName()) &&
-                StringUtils.isNotBlank(recipe.getTitel()) &&
+                StringUtils.isNotBlank(recipe.getName()) &&
                 recipe.getSteps() !=null;
     }
 }

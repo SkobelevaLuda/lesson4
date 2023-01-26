@@ -1,7 +1,5 @@
 package com.example.lesson4.model;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
@@ -11,5 +9,8 @@ public class Ingredient {
     private int weigth;
     private String unit;
 
-
+    @Override
+    public String toString() {
+        return nameIngredirtn + " - " + weigth +" - " + unit ;
+    }
 }
